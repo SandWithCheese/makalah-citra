@@ -1,0 +1,34 @@
+# Python Dependencies for Seismic YOLO Project
+
+# Deep Learning & Computer Vision
+ultralytics>=8.3.0          # YOLO11 framework
+
+# NOTE: Install PyTorch and torchvision separately using:
+# pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+# This ensures you get the correct CUDA 13.0 compatible version
+
+# Image Processing
+numpy>=1.24.0               # Numerical computing (used in preprocessing)
+Pillow>=10.0.0              # Image I/O and manipulation (used in preprocessing)
+
+# Configuration & Utilities
+pyyaml>=6.0                 # YAML configuration parsing (used in training script)
+
+# Optional: Advanced image processing
+# scikit-image>=0.21.0        # Advanced image processing (not currently used)
+
+# Optional: Visualization & Analysis
+# matplotlib>=3.7.0           # Plotting and visualization
+# seaborn>=0.12.0            # Statistical visualization
+# pandas>=2.0.0              # Data analysis
+# opencv-python>=4.8.0        # Computer vision operations
+
+# Optional: Progress bars
+# tqdm>=4.65.0               # Progress bars
+
+# Optional: Jupyter support
+# jupyter>=1.0.0
+# ipykernel>=6.0.0
+
+# Annotation & Labeling Tools
+label-studio>=1.13.0        # Modern web-based annotation platform

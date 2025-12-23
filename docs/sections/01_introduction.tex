@@ -1,0 +1,15 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Seismic interpretation is a fundamental step in hydrocarbon exploration and subsurface hazard assessment. It involves analyzing seismic reflection data to identify geological structures such as faults, horizons, and gas chimneys \cite{Seismic_Survey}. Traditionally, this process is performed manually by experienced interpreters, which is both time-consuming and subjective, leading to potential inconsistencies in risk assessment.
+
+\subsection{Problem Statement}
+With the exponential growth of seismic data volume, manual interpretation has become a bottleneck. Furthermore, subtle hazardous features like small fault zones or gas pockets can be easily overlooked in noisy data, posing significant risks to drilling operations. Existing automated methods often rely on traditional image processing techniques that struggle with the complex, noisy nature of seismic data.
+
+\subsection{Contribution}
+This paper proposes an automated detection framework using the YOLO (You Only Look Once) deep learning architecture. Our contributions include:
+\begin{itemize}
+    \item Adaptation of the YOLO object detection model for seismic anomaly identification.
+    \item A specialized preprocessing pipeline involving percentile-based contrast normalization and overlapping tiling.
+    \item Empirical evaluation of the model's performance in detecting multiple classes of subsurface hazards.
+\end{itemize}

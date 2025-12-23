@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data directories (large files)
+# Ignore all contents of data subdirectories
+data/raw/*
+data/train/*
+data/val/*
+data/processed/*
+
+# But keep .gitkeep files and READMEs to preserve structure
+!data/raw/.gitkeep
+!data/raw/README.md
+!data/train/.gitkeep
+!data/train/images/
+!data/train/images/.gitkeep
+!data/train/labels/
+!data/train/labels/.gitkeep
+!data/val/.gitkeep
+!data/val/images/
+!data/val/images/.gitkeep
+!data/val/labels/
+!data/val/labels/.gitkeep
+!data/processed/.gitkeep
+
+# Large file formats
+*.zip
+*.tar.gz
+*.tif
+*.tiff
+
+# Train and Val data
+data/**/*.png
+data/**/*.txt
+
+# Model weights
+*.pt
+*.pth
+*.weights
+!best.pt  # Keep best model
+
+# YOLO runs
+runs/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+temp/
+custom_data/
+src/data.yaml

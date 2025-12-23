@@ -1,0 +1,17 @@
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{Dataset Preparation}
+Seismic data often spans kilometers in range, making it too large for direct input into standard CNNs. We employ an overlapping tiling strategy where large seismic sections are sliced into $W \times H$ tiles (default $1024 \times 1024$). To mitigate boundary effects, we apply a 25\% overlap. We also use percentile clipping (2\%-98\%) to handle amplitude outliers and normalize pixel intensities to $[0, 255]$ for 8-bit image conversion.
+
+\subsection{YOLO Architecture}
+We adopt the YOLOv8 architecture, which features a CSPDarknet backbone for feature extraction and a Path Aggregation Network (PANet) neck for multi-scale feature fusion. The decoupled head predicts objectness, class probabilities, and bounding box regression coordinates separately.
+
+\subsection{Training Configuration}
+The model is trained using transfer learning from COCO-pretrained weights to accelerate convergence.
+\begin{itemize}
+    \item \textbf{Framework}: Ultralytics YOLO
+    \item \textbf{Input Resolution}: $640 \times 640$ pixels
+    \item \textbf{Optimizer}: SGD with momentum 0.937
+    \item \textbf{Loss Function}: CIoU for box regression, BCE for classification
+\end{itemize}
