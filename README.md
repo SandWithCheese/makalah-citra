@@ -115,7 +115,7 @@ Use the helper script `run_train.sh` to handle CUDA library paths automatically.
 cd src
 ./run_train.sh \
   --data_zip ../data.zip \
-  --model yolo12s.pt \
+  --model yolo11s.pt \
   --epochs 100 \
   --imgsz 640 \
   --batch 16

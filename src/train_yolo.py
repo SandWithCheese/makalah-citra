@@ -253,8 +253,8 @@ def main():
     parser.add_argument(
         '--model',
         type=str,
-        default='yolo12s.pt',
-        help='YOLO model to train (default: yolo12s.pt)'
+        default='yolo11s.pt',
+        help='YOLO model to train (default: yolo11s.pt)'
     )
     parser.add_argument(
         '--epochs',

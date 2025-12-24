@@ -33,7 +33,7 @@ ls ../data.zip  # Should contain images/, labels/, classes.txt
 # Run training using the helper script
 ./run_train.sh \
   --data_zip ../data.zip \
-  --model yolo12s.pt \
+  --model yolo11s.pt \
   --epochs 60 \
   --imgsz 640 \
   --batch 16
@@ -47,7 +47,7 @@ export LD_LIBRARY_PATH="$(pwd)/venv/lib/python3.11/site-packages/nvidia/cu13/lib
 # Run training
 python train_yolo.py \
   --data_zip ../data.zip \
-  --model yolo12s.pt \
+  --model yolo11s.pt \
   --epochs 60 \
   --imgsz 640 \
   --batch 16
@@ -61,7 +61,7 @@ python train_yolo.py \
 |----------|------|---------|-------------|
 | `--data_zip` | str | `data.zip` | Path to your zipped dataset |
 | `--base_path` | str | current dir | Working directory for training |
-| `--model` | str | `yolo12s.pt` | YOLO model variant (`yolo11s`, `yolo12s`, `yolo12m`) |
+| `--model` | str | `yolo11s.pt` | YOLO model variant (`yolo11s`, `yolo12s`, `yolo12m`) |
 | `--epochs` | int | `60` | Number of training epochs |
 | `--imgsz` | int | `640` | Training image size (640, 480, 1024, etc.) |
 | `--batch` | int | `16` | Batch size (reduce if GPU memory insufficient) |
@@ -165,7 +165,7 @@ makalah-citra/
 ```bash
 ./run_train.sh \
   --data_zip ../data.zip \
-  --model yolo12m.pt \
+  --model yolo11m.pt \
   --imgsz 1024 \
   --epochs 80 \
   --batch 8
@@ -262,7 +262,7 @@ cd src
 | `yolo12m.pt` | ~45 MB | Medium | Better | More accuracy needed |
 | `yolo12l.pt` | ~90 MB | Slow | Best | Maximum accuracy |
 
-For seismic anomaly detection, **`yolo12s.pt` is recommended** as a good balance.
+For seismic anomaly detection, **`yolo11s.pt` is recommended** as a good balance.
 
 ---
 
