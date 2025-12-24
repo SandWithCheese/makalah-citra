@@ -41,8 +41,12 @@ R.~Munir, ``Pengantar pemrosesan citra digital (bagian 1),'' Bahan Kuliah
   STEI ITB, 2025.
 
 \bibitem{IntroReflectionSeismics_Chapter5}
-``Introduction to reflection seismics: Processing of seismic reflection data,''
-  Lecture Notes, Chapter 5.
+\BIBentryALTinterwordspacing
+{TU Delft OpenCourseWare}, ``Introduction to reflection seismics: Processing of
+  seismic reflection data,'' Lecture Notes, Chapter 5, diakses online.
+  [Online]. Available:
+  \url{https://ocw.tudelft.nl/wp-content/uploads/Intro_reflection_seismics_Chapter_5._Processing_of_Seismic_Reflection_Data.pdf}
+\BIBentrySTDinterwordspacing
 
 \bibitem{ScientificDrilling2020}
 D.~R. Cox \emph{et~al.}, ``Geohazard detection using 3d seismic data,''

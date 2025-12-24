@@ -21,11 +21,35 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}\textit  {Seismic Reflection Data}}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-D}}\textit  {Deep Learning} pada Data Seismik}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-E}}YOLO (\textit  {You Only Look Once})}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {III}Pembahasan}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III}Metodologi}{2}{}\protected@file@percent }
 \newlabel{sec:methodology}{{III}{2}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Dataset}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Data Preprocessing}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Potongan kode implementasi strategi tiling.}}{3}{}\protected@file@percent }
+\newlabel{fig:code_tiling}{{1}{3}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Implementasi YOLO}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Konfigurasi pelatihan model YOLO.}}{3}{}\protected@file@percent }
+\newlabel{fig:code_train}{{2}{3}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Hasil dan Pembahasan}{3}{}\protected@file@percent }
+\newlabel{sec:results}{{IV}{3}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-}1}Ringkasan Metrik Utama}{3}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Ringkasan Metrik Performansi Utama}}{3}{}\protected@file@percent }
+\newlabel{tab:metrics_summary}{{I}{3}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-}2}Analisis Confusion Matrix}{3}{}\protected@file@percent }
 \bibstyle{styles/IEEEtran}
 \bibdata{bib/references}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Confusion Matrix hasil evaluasi pada data validasi.}}{4}{}\protected@file@percent }
+\newlabel{fig:confusion_matrix}{{3}{4}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-}3}Analisis Kurva dan Titik Optimal}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Kurva F1-Confidence menunjukkan keseimbangan optimal antara Presisi dan Recall pada threshold tertentu.}}{4}{}\protected@file@percent }
+\newlabel{fig:f1_curve}{{4}{4}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Kurva Precision-Recall (PR) menunjukkan area di bawah kurva yang luas, merepresentasikan mAP yang tinggi.}}{4}{}\protected@file@percent }
+\newlabel{fig:pr_curve}{{5}{4}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-}4}Validasi Visual}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Perbandingan visual (a) Label anomali asli dan (b) Hasil deteksi model. Kotak pembatas pada (b) menunjukkan prediksi dengan skor kepercayaan terkait.}}{4}{}\protected@file@percent }
+\newlabel{fig:visual_val}{{6}{4}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Kesimpulan}{4}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{V}{4}{}{}{}}
 \bibcite{RemoteSensing2023}{1}
 \bibcite{Munir2025_Part1}{2}
 \bibcite{Munir2025_Part2}{3}
@@ -33,15 +57,5 @@
 \bibcite{IntroReflectionSeismics_Chapter5}{5}
 \bibcite{ScientificDrilling2020}{6}
 \bibcite{YOLO_v1}{7}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Data Preprocessing}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Implementasi YOLO}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Evaluasi Model}{3}{}\protected@file@percent }
-\newlabel{sec:results}{{\mbox  {III-D}}{3}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Kinerja Deteksi Berdasarkan Kelas}}{3}{}\protected@file@percent }
-\newlabel{tab:metrics}{{I}{3}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Kesimpulan}{3}{}\protected@file@percent }
-\newlabel{sec:conclusion}{{IV}{3}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Visualisasi hasil prediksi model pada data validasi. Kotak pembatas berwarna menunjukkan lokasi anomali seismik yang terdeteksi (\textit  {Fault}, \textit  {Gas Chimney}, \textit  {Void}) dibandingkan dengan label \textit  {ground truth}.}}{3}{}\protected@file@percent }
-\newlabel{fig:detections}{{1}{3}{}{}{}}
-\@writefile{toc}{\contentsline {section}{Referensi}{3}{}\protected@file@percent }
-\gdef \@abspage@last{4}
+\@writefile{toc}{\contentsline {section}{Referensi}{5}{}\protected@file@percent }
+\gdef \@abspage@last{5}

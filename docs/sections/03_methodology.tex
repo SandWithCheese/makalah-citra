@@ -1,11 +1,69 @@
-\section{Pembahasan}
+\section{Metodologi}
 \label{sec:methodology}
 
 \subsection{Dataset}
-Data seismik yang digunakan dalam penelitian ini terdiri dari penampang seismik yang mengandung anomali struktur bawah permukaan. Karena data seismik asli sering mencakup rentang kilometer yang luas, data tersebut tidak dapat dimasukkan secara langsung ke dalam arsitektur CNN standar tanpa kehilangan detail resolusi yang penting. Dataset dibagi menjadi himpunan \textit{training} dan \textit{validation} untuk memastikan generalisasi model.
+Dataset yang digunakan dalam penelitian ini merupakan data seismik riil yang diperoleh dari perusahaan minyak dan gas bumi (\textit{oil and gas}) yang beroperasi di kawasan Asia Tenggara. Dikarenakan sifat kerahasiaan (\textit{confidential}) data industri, detail lokasi dan atribut geofisika spesifik tidak dapat dipublikasikan secara terbuka. Volume dataset yang tersedia untuk penelitian ini relatif terbatas, terdiri dari sekitar sepuluh berkas data penampang seismik yang merepresentasikan struktur bawah permukaan. Terbatasnya jumlah data asli ini menjadi tantangan utama yang diatasi melalui strategi \textit{preprocessing} dan augmentasi data yang sistematis.
 
 \subsection{Data Preprocessing}
-Kami menerapkan strategi \textit{tiling} di mana penampang seismik besar diiris menjadi ubin berukuran $W \times H$ (standar $1024 \times 1024$). Strategi ini diterapkan tidak hanya untuk mengatasi masalah resolusi citra, tetapi terutama sebagai solusi atas keterbatasan jumlah dataset asli yang sangat terbatas (hanya berjumlah sekitar sepuluh berkas). Dengan memecah citra menjadi banyak \textit{tile}, jumlah sampel pelatihan meningkat signifikan, berfungsi sebagai mekanisme augmentasi data untuk mencegah \textit{overfitting}. Untuk memitigasi efek batas dan memastikan kontinuitas fitur, kami menerapkan \textit{overlap} sebesar 25\% antar ubin. Selain itu, teknik normalisasi intensitas digunakan, yaitu \textit{percentile clipping} (2\%-98\%) untuk menangani \textit{outliers} amplitudo, diikuti dengan penskalaan linear intensitas piksel ke rentang $[0, 255]$ agar sesuai dengan format citra 8-bit yang dibutuhkan oleh model.
+Tahap pra-pemrosesan data memegang peranan krusial untuk mengubah data seismik mentah menjadi format yang sesuai untuk pelatihan model \textit{deep learning}. Implementasi lengkap proses ini dirancang dalam modul \texttt{preprocessing/seismic\_tiler.py}. Langkah-langkah utamanya adalah sebagai berikut:
+
+\begin{enumerate}
+    \item \textbf{Konversi dan Normalisasi}: Citra seismik dikonversi menjadi format \textit{grayscale}. Untuk meningkatkan kontras fitur anomali, diterapkan teknik \textit{percentile clipping} (default 1\%-99\%), di mana intensitas piksel di luar rentang ini dipotong (\textit{clipped}). Hasilnya kemudian dinormalisasi ke rentang intensitas [0, 255] agar sesuai dengan format citra 8-bit.
+    \item \textbf{Tiling dengan Overlap}: Mengingat dimensi penampang seismik yang sangat besar, citra dipecah menjadi ubin-ubin (\textit{tiles}) berukuran lebih kecil, dengan ukuran default $1024 \times 1024$ piksel. Untuk menjaga kontinuitas fitur geologi yang mungkin terpotong di batas ubin, diterapkan strategi \textit{overlapping} sebesar 25\% antar ubin.
+    \item \textbf{Filtering}: Ubin yang tidak mengandung informasi signifikan (misalnya area kosong atau \textit{minimum information}) disaring secara otomatis menggunakan ambang batas standar deviasi tertentu.
+\end{enumerate}
+
+Potongan kode berikut memperlihatkan implementasi logika iterasi \textit{tiling}:
+\begin{figure}[htbp]
+\begin{small}
+\begin{verbatim}
+def iterate_tiles(W, H, tile, overlap):
+    stride = max(1, int(tile * (1.0 - overlap)))
+    y = 0
+    while y < H:
+        x = 0
+        while x < W:
+            # Calculate coordinates
+            x1 = min(x + tile, W)
+            y1 = min(y + tile, H)
+            x0 = max(0, x1 - tile)
+            y0 = max(0, y1 - tile)
+            yield x0, y0, x1 - x0, y1 - y0
+            # ... update x ...
+        # ... update y ...
+\end{verbatim}
+\end{small}
+\caption{Potongan kode implementasi strategi tiling.}
+\label{fig:code_tiling}
+\end{figure}
+
+Setelah proses \textit{tiling}, dilakukan pelabelan manual (\textit{annotation}) menggunakan perangkat lunak \textbf{Label Studio}. Area yang diidentifikasi sebagai anomali pada setiap ubin ditandai dengan \textit{bounding box}. Hasil pelabelan ini kemudian diekspor dan diunduh dalam bentuk arsip \texttt{data.zip} yang berisi direktori citra dan label dalam format standar YOLO untuk pelatihan.
 
 \subsection{Implementasi YOLO}
-Kami mengadopsi arsitektur YOLOv8 yang menampilkan \textit{backbone} CSPDarknet untuk \textit{feature extraction} dan \textit{Path Aggregation Network} (PANet) \textit{neck} untuk fusi fitur multi-skala. \textit{Head} yang terpisah (\textit{decoupled}) memprediksi \textit{objectness score}, \textit{class probabilities}, dan koordinat regresi \textit{bounding box} secara independen. Model dilatih menggunakan teknik \textit{transfer learning} dari bobot pra-latih COCO untuk mempercepat konvergensi. Parameter pelatihan utama meliputi resolusi input $640 \times 640$ piksel, pengoptimal SGD dengan momentum 0.937, serta \textit{loss function} CIoU untuk regresi kotak dan Binary Cross Entropy (BCE) untuk klasifikasi.
+Pelatihan model deteksi objek dilakukan menggunakan skrip \texttt{src/train\_yolo.py} yang dibangun di atas kerangka kerja Ultralytics. Model yang dipilih untuk eksperimen ini adalah \texttt{yolo11s.pt} (YOLOv11 Small). Varian ini menawarkan keseimbangan optimal antara biaya komputasi dan akurasi deteksi, yang sangat sesuai untuk eksperimen awal pada perangkat keras terbatas.
+
+Alur kerja pelatihan mencakup langkah-langkah otomatis berikut:
+\begin{enumerate}
+    \item Ekstraksi dataset dari \texttt{data.zip}.
+    \item Pembagian dataset menjadi himpunan \textit{train} (90\%) dan \textit{validation} (10\%) secara acak untuk memastikan evaluasi yang objektif.
+    \item Pembuatan berkas konfigurasi \texttt{data.yaml} secara dinamis sesuai struktur folder yang terbentuk.
+    \item Pelatihan model (\textit{fine-tuning}) menggunakan bobot awal (\textit{pretrained weights}) untuk mempercepat konvergensi.
+\end{enumerate}
+
+Kode implementasi utama untuk inisiasi pelatihan adalah sebagai berikut:
+\begin{figure}[htbp]
+\begin{small}
+\begin{verbatim}
+model = YOLO('yolo11s.pt')
+results = model.train(
+    data=data_yaml,
+    epochs=60,
+    imgsz=640,
+    batch=16,
+    device=device
+)
+\end{verbatim}
+\end{small}
+\caption{Konfigurasi pelatihan model YOLO.}
+\label{fig:code_train}
+\end{figure}

@@ -1,30 +1,88 @@
-\subsection{Evaluasi Model}
+\section{Hasil dan Pembahasan}
 \label{sec:results}
 
-Model dievaluasi menggunakan \textit{held-out test set} dari ubin seismik yang tidak dilibatkan dalam pelatihan. Kami melaporkan metrik \textit{object detection} standar: \textit{Precision} (P), \textit{Recall} (R), dan \textit{mean Average Precision} (mAP) pada ambang batas \textit{Intersection over Union} (IoU) sebesar 0.5.
+Evaluasi kinerja model dilakukan secara komprehensif menggunakan metrik deteksi objek standar, analisis kurva performansi, dan validasi visual terhadap data validasi (\textit{held-out validation set}).
 
-\begin{figure}[htbp]
-\centerline{\includegraphics[width=\columnwidth]{detections.jpg}}
-\caption{Visualisasi hasil prediksi model pada data validasi. Kotak pembatas berwarna menunjukkan lokasi anomali seismik yang terdeteksi (\textit{Fault}, \textit{Gas Chimney}, \textit{Void}) dibandingkan dengan label \textit{ground truth}.}
-\label{fig:detections}
-\end{figure}
+\subsubsection{Ringkasan Metrik Utama}
+Model menunjukkan kemampuan lokalisasi objek yang sangat presisi, ditandai dengan nilai \textit{mean Average Precision} (mAP) yang tinggi. Tabel \ref{tab:metrics_summary} merangkum metrik performansi utama yang dicapai model.
 
 \begin{table}[htbp]
-\caption{Kinerja Deteksi Berdasarkan Kelas}
+\caption{Ringkasan Metrik Performansi Utama}
 \begin{center}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|l|c|c|}
 \hline
-\textbf{Kelas} & \textbf{\textit{Precision}} & \textbf{\textit{Recall}} & \textbf{mAP@0.5} \\
+\textbf{Metrik} & \textbf{Nilai} & \textbf{Keterangan} \\
 \hline
-\textit{Fault} & 0.85 & 0.78 & 0.82 \\
-\textit{Gas Chimney} & 0.76 & 0.82 & 0.79 \\
-\textit{Void} & 0.91 & 0.88 & 0.90 \\
-\hline
-\textbf{Keseluruhan} & \textbf{0.84} & \textbf{0.83} & \textbf{0.84} \\
+mAP@0.5 & 0.962 (96,2\%) & Indikasi presisi tinggi \\
+Max F1-Score & 0.89 & Pada \textit{confidence} 0.164 \\
+Max Precision & 1.00 & Pada \textit{confidence} 0.362 \\
+Max Recall & 1.00 & Pada \textit{confidence} 0.000 \\
 \hline
 \end{tabular}
-\label{tab:metrics}
+\label{tab:metrics_summary}
 \end{center}
 \end{table}
 
-Analisis kualitatif, seperti yang ditunjukkan pada Gambar \ref{fig:detections}, menegaskan kemampuan model untuk melokalisasi fitur bahaya secara visual. \textit{Bounding box} yang dihasilkan secara akurat mencakup jangkauan vertikal \textit{gas chimneys} dan diskontinuitas linear \textit{fault zones}, membedakannya secara efektif dari lapisan sedimen di sekitarnya meskipun terdapat derau pada data.
+\subsubsection{Analisis Confusion Matrix}
+Analisis terhadap \textit{Confusion Matrix} (Gambar \ref{fig:confusion_matrix}) memperlihatkan akurasi prediksi model terhadap label \textit{ground truth}:
+\begin{itemize}
+    \item \textbf{True Positive (TP)}: Model berhasil mendeteksi 24 anomali dengan benar.
+    \item \textbf{False Negative (FN)}: Terdapat 10 anomali aktual yang terlewat oleh model, menghasilkan tingkat keberhasilan deteksi (\textit{Recall}) efektif sebesar 71\%.
+    \item \textbf{False Positive (FP)}: Hanya 1 sampel latar belakang (\textit{background}) yang salah diklasifikasikan sebagai anomali, menunjukkan tingkat kesalahan alarm palsu yang sangat rendah.
+\end{itemize}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.8\columnwidth]{confusion_matrix.png}}
+\caption{Confusion Matrix hasil evaluasi pada data validasi.}
+\label{fig:confusion_matrix}
+\end{figure}
+
+\subsubsection{Analisis Kurva dan Titik Optimal}
+Kurva \textit{Precision-Recall} (PR) yang ditunjukkan pada Gambar \ref{fig:pr_curve} membentuk pola siku yang mendekati sudut kanan atas, menegaskan stabilitas model dengan mAP mencapai 0.962 pada ambang batas IoU 0.5.
+
+Penentuan ambang batas (\textit{threshold}) kepercayaan menjadi krusial untuk implementasi:
+\begin{enumerate}
+    \item \textbf{Keseimbangan Optimal}: Nilai F1-Score tertinggi dicapai pada ambang batas \textbf{0.164}. Ini adalah titik rekomendasi operasional untuk menyeimbangkan antara presisi dan sensitivitas.
+
+    \begin{figure}[H]
+    \centerline{\includegraphics[width=0.8\columnwidth]{BoxF1_curve.png}}
+    \caption{Kurva F1-Confidence menunjukkan keseimbangan optimal antara Presisi dan Recall pada threshold tertentu.}
+    \label{fig:f1_curve}
+    \end{figure}
+
+    \item \textbf{Keandalan Tinggi}: Jika prioritas adalah meniadakan alarm palsu (\textit{zero false alarm}), ambang batas dapat dinaikkan ke \textbf{0.362}, di mana presisi mencapai nilai sempurna 1.00.
+
+    \begin{figure}[H]
+    \centerline{\includegraphics[width=0.8\columnwidth]{BoxPR_curve.png}}
+    \caption{Kurva Precision-Recall (PR) menunjukkan area di bawah kurva yang luas, merepresentasikan mAP yang tinggi.}
+    \label{fig:pr_curve}
+    \end{figure}
+\end{enumerate}
+
+\subsubsection{Validasi Visual}
+Validasi kualitatif dilakukan dengan membandingkan prediksi model terhadap citra label asli (Gambar \ref{fig:visual_val}). Observasi pada sampel validasi (\textit{batch} 0 dan 1) menunjukkan bahwa:
+\begin{itemize}
+    \item Model sangat handal dalam mendeteksi fitur anomali yang kontras dan jelas.
+    \item Anomali yang gagal terdeteksi (\textit{False Negative}) umumnya memiliki skor kepercayaan (\textit{confidence score}) yang rendah (0.3 - 0.4), sehingga tertolak jika ambang batas deteksi diset terlalu tinggi.
+
+    \begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\linewidth]{val_batch0_labels.jpg}
+        \smallskip
+        {\footnotesize (a) Label Ground Truth\par}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\linewidth]{val_batch0_pred.jpg}
+        \smallskip
+        {\footnotesize (b) Prediksi Model\par}
+    \end{minipage}
+    \caption{Perbandingan visual (a) Label anomali asli dan (b) Hasil deteksi model. Kotak pembatas pada (b) menunjukkan prediksi dengan skor kepercayaan terkait.}
+    \label{fig:visual_val}
+    \end{figure}
+\end{itemize}
+
+Secara keseluruhan, model direkomendasikan untuk digunakan dengan \textit{confidence threshold} 0.16 untuk meminimalkan anomali yang terlewat, sembari tetap menjaga tingkat \textit{false positive} yang minimal.
