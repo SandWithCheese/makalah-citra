@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.21)  24 DEC 2025 15:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.21)  24 DEC 2025 15:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -324,40 +324,40 @@ f-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]) (./sections/03_methodology.tex [2]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 8
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 9
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Underfull \hbox (badness 5388) in paragraph at lines 8--9
+Underfull \hbox (badness 5388) in paragraph at lines 9--10
 []\OT1/ptm/m/n/10 Tahap pra-pemrosesan data memegang per-anan kru-
  []
 
 
-Underfull \hbox (badness 1430) in paragraph at lines 8--9
+Underfull \hbox (badness 1430) in paragraph at lines 9--10
 \OT1/ptm/m/n/10 sial un-tuk men-gubah data seis-mik men-tah men-jadi for-
  []
 
 
-Underfull \hbox (badness 5878) in paragraph at lines 8--9
+Underfull \hbox (badness 5878) in paragraph at lines 9--10
 \OT1/ptm/m/n/10 mat yang sesuai un-tuk pelati-han model \OT1/ptm/m/it/10 deep l
 earn-
  []
 
 
-Underfull \hbox (badness 3568) in paragraph at lines 8--9
+Underfull \hbox (badness 3568) in paragraph at lines 9--10
 \OT1/ptm/m/it/10 ing\OT1/ptm/m/n/10 . Im-ple-men-tasi lengkap proses ini di-ran
 -cang dalam
  []
 
 
-Overfull \hbox (7.1997pt too wide) in paragraph at lines 34--34
+Overfull \hbox (7.1997pt too wide) in paragraph at lines 35--35
 []    \OT1/pcr/m/n/9 stride = max(1, int(tile * (1.0 - overlap)))[] 
  []
 
 
-Underfull \hbox (badness 8132) in paragraph at lines 43--44
+Underfull \hbox (badness 8132) in paragraph at lines 44--45
 \OT1/ptm/m/n/10 skrip \OT1/pcr/m/n/10 src/train_yolo.py \OT1/ptm/m/n/10 yang di
 ban-gun di atas
  []
@@ -367,18 +367,17 @@ Underfull \hbox (badness 1436) in paragraph at lines 4--5
 []\OT1/ptm/m/n/10 Evaluasi kin-erja model di-lakukan se-cara kom-pre-hen-sif
  []
 
-
+[3]
 Underfull \hbox (badness 4995) in paragraph at lines 31--32
 []\OT1/ptm/b/n/10 False Pos-i-tive (FP)\OT1/ptm/m/n/10 : Hanya 1 sam-pel latar 
 be-
  []
 
-<./assets/confusion_matrix.png, id=17, 867.24pt x 650.43pt>
+<./assets/confusion_matrix.png, id=22, 867.24pt x 650.43pt>
 File: ./assets/confusion_matrix.png Graphic file (type png)
 <use ./assets/confusion_matrix.png>
 Package pdftex.def Info: ./assets/confusion_matrix.png  used on input line 35.
 (pdftex.def)             Requested size: 201.60077pt x 151.19363pt.
-[3]
 <./assets/BoxF1_curve.png, id=24, 650.43pt x 433.62pt>
 File: ./assets/BoxF1_curve.png Graphic file (type png)
 <use ./assets/BoxF1_curve.png>
@@ -389,29 +388,39 @@ File: ./assets/BoxPR_curve.png Graphic file (type png)
 <use ./assets/BoxPR_curve.png>
 Package pdftex.def Info: ./assets/BoxPR_curve.png  used on input line 56.
 (pdftex.def)             Requested size: 201.60077pt x 134.40096pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 <./assets/val_batch0_labels.jpg, id=26, 1927.2pt x 1927.2pt>
 File: ./assets/val_batch0_labels.jpg Graphic file (type jpg)
 <use ./assets/val_batch0_labels.jpg>
-Package pdftex.def Info: ./assets/val_batch0_labels.jpg  used on input line 72.
+Package pdftex.def Info: ./assets/val_batch0_labels.jpg  used on input line 69.
 
 (pdftex.def)             Requested size: 120.95892pt x 120.94962pt.
 <./assets/val_batch0_pred.jpg, id=27, 1927.2pt x 1927.2pt>
 File: ./assets/val_batch0_pred.jpg Graphic file (type jpg)
 <use ./assets/val_batch0_pred.jpg>
-Package pdftex.def Info: ./assets/val_batch0_pred.jpg  used on input line 79.
+Package pdftex.def Info: ./assets/val_batch0_pred.jpg  used on input line 76.
 (pdftex.def)             Requested size: 120.95892pt x 120.94962pt.
-)
-(./sections/05_conclusion.tex) (./main.bbl [4 <./assets/confusion_matrix.png> <
-./assets/BoxF1_curve.png> <./assets/BoxPR_curve.png> <./assets/val_batch0_label
-s.jpg> <./assets/val_batch0_pred.jpg>]
+<./assets/false_negatives_montage.jpg, id=28, 1027.84pt x 1027.84pt>
+File: ./assets/false_negatives_montage.jpg Graphic file (type jpg)
+<use ./assets/false_negatives_montage.jpg>
+Package pdftex.def Info: ./assets/false_negatives_montage.jpg  used on input li
+ne 93.
+(pdftex.def)             Requested size: 226.79846pt x 226.79988pt.
+
+Underfull \vbox (badness 5359) has occurred while \output is active []
+
+ [4 <./assets/confusion_matrix.png> <./assets/BoxF1_curve.png> <./assets/BoxPR_
+curve.png> <./assets/val_batch0_labels.jpg> <./assets/val_batch0_pred.jpg>])
+(./sections/05_conclusion.tex
+Underfull \hbox (badness 1454) in paragraph at lines 6--7
+\OT1/ptm/m/n/10 gan kon-tras ren-dah atau fi-tur vi-sual yang samar, se-ba-
+ []
+
+) (./main.bbl
 Underfull \hbox (badness 1436) in paragraph at lines 45--50
 []\OT1/ptm/m/n/8 TU Delft Open-Course-Ware, ``In-tro-duc-tion to re-flec-tion
  []
 
-) (./sections/06_originality.tex)
+) (./sections/06_originality.tex [5 <./assets/false_negatives_montage.jpg>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -423,7 +432,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5
+[6
 
 ] (./main.aux)
  ***********
@@ -432,13 +441,13 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4329 strings out of 475670
- 68790 string characters out of 5784920
- 1946975 words of memory out of 5000000
- 26416 multiletter control sequences out of 15000+600000
+ 4339 strings out of 475670
+ 69173 string characters out of 5784920
+ 1945975 words of memory out of 5000000
+ 26426 multiletter control sequences out of 15000+600000
  599982 words of font info for 115 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
- 57i,8n,65p,963b,382s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,8n,65p,963b,356s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texliv
@@ -448,10 +457,10 @@ fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
 rw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8
 a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 2058487 bytes).
+Output written on main.pdf (6 pages, 2539602 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 84 PDF objects out of 1000 (max. 8388607)
+ 46 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -2,7 +2,8 @@
 \label{sec:methodology}
 
 \subsection{Dataset}
-Dataset yang digunakan dalam penelitian ini merupakan data seismik riil yang diperoleh dari perusahaan minyak dan gas bumi (\textit{oil and gas}) yang beroperasi di kawasan Asia Tenggara. Dikarenakan sifat kerahasiaan (\textit{confidential}) data industri, detail lokasi dan atribut geofisika spesifik tidak dapat dipublikasikan secara terbuka. Volume dataset yang tersedia untuk penelitian ini relatif terbatas, terdiri dari sekitar sepuluh berkas data penampang seismik yang merepresentasikan struktur bawah permukaan. Terbatasnya jumlah data asli ini menjadi tantangan utama yang diatasi melalui strategi \textit{preprocessing} dan augmentasi data yang sistematis.
+Dataset yang digunakan dalam penelitian ini merupakan data seismik riil yang diperoleh dari perusahaan minyak dan gas bumi (\textit{oil and gas}) yang beroperasi di kawasan Asia Tenggara. Dikarenakan sifat kerahasiaan (\textit{confidential}) data industri, detail lokasi dan atribut geofisika spesifik tidak dapat dipublikasikan secara terbuka. 
+Dataset awal terdiri dari 13 citra penampang seismik yang merepresentasikan struktur bawah permukaan. Setelah melalui proses \textit{tiling} dan filtering, diperoleh total 74 sampel ubin (\textit{tiles}) yang layak digunakan. Dataset ini kemudian dibagi menjadi himpunan pelatihan (\textit{training set}) sebanyak 49 sampel dan himpunan validasi (\textit{validation set}) sebanyak 25 sampel. Terbatasnya jumlah data asli ini menjadi tantangan utama yang diatasi melalui strategi \textit{preprocessing} dan pembagian ubin yang sistematis.
 
 \subsection{Data Preprocessing}
 Tahap pra-pemrosesan data memegang peranan krusial untuk mengubah data seismik mentah menjadi format yang sesuai untuk pelatihan model \textit{deep learning}. Implementasi lengkap proses ini dirancang dalam modul \texttt{preprocessing/seismic\_tiler.py}. Langkah-langkah utamanya adalah sebagai berikut:
@@ -13,7 +14,7 @@ Tahap pra-pemrosesan data memegang peranan krusial untuk mengubah data seismik m
     \item \textbf{Filtering}: Ubin yang tidak mengandung informasi signifikan (misalnya area kosong atau \textit{minimum information}) disaring secara otomatis menggunakan ambang batas standar deviasi tertentu.
 \end{enumerate}
 
-Potongan kode berikut memperlihatkan implementasi logika iterasi \textit{tiling}:
+Potongan kode berikut memperlihatkan implementasi logika iterasi \textit{tiling} (Gambar \ref{fig:code_tiling}):
 \begin{figure}[htbp]
 \begin{small}
 \begin{verbatim}
@@ -50,7 +51,7 @@ Alur kerja pelatihan mencakup langkah-langkah otomatis berikut:
     \item Pelatihan model (\textit{fine-tuning}) menggunakan bobot awal (\textit{pretrained weights}) untuk mempercepat konvergensi.
 \end{enumerate}
 
-Kode implementasi utama untuk inisiasi pelatihan adalah sebagai berikut:
+Kode implementasi utama untuk inisiasi pelatihan adalah sebagai berikut (Gambar \ref{fig:code_train}):
 \begin{figure}[htbp]
 \begin{small}
 \begin{verbatim}

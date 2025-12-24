@@ -42,7 +42,7 @@ Kurva \textit{Precision-Recall} (PR) yang ditunjukkan pada Gambar \ref{fig:pr_cu
 
 Penentuan ambang batas (\textit{threshold}) kepercayaan menjadi krusial untuk implementasi:
 \begin{enumerate}
-    \item \textbf{Keseimbangan Optimal}: Nilai F1-Score tertinggi dicapai pada ambang batas \textbf{0.164}. Ini adalah titik rekomendasi operasional untuk menyeimbangkan antara presisi dan sensitivitas.
+    \item \textbf{Keseimbangan Optimal}: Nilai F1-Score tertinggi dicapai pada ambang batas \textbf{0.164} (Gambar \ref{fig:f1_curve}). Ini adalah titik rekomendasi operasional untuk menyeimbangkan antara presisi dan sensitivitas.
 
     \begin{figure}[H]
     \centerline{\includegraphics[width=0.8\columnwidth]{BoxF1_curve.png}}
@@ -59,13 +59,10 @@ Penentuan ambang batas (\textit{threshold}) kepercayaan menjadi krusial untuk im
     \end{figure}
 \end{enumerate}
 
-\subsubsection{Validasi Visual}
-Validasi kualitatif dilakukan dengan membandingkan prediksi model terhadap citra label asli (Gambar \ref{fig:visual_val}). Observasi pada sampel validasi (\textit{batch} 0 dan 1) menunjukkan bahwa:
-\begin{itemize}
-    \item Model sangat handal dalam mendeteksi fitur anomali yang kontras dan jelas.
-    \item Anomali yang gagal terdeteksi (\textit{False Negative}) umumnya memiliki skor kepercayaan (\textit{confidence score}) yang rendah (0.3 - 0.4), sehingga tertolak jika ambang batas deteksi diset terlalu tinggi.
+\subsubsection{Validasi Visual dan Analisis Kegagalan}
+Validasi kualitatif dilakukan dengan membandingkan prediksi model terhadap citra label asli. Secara umum, model mampu mendeteksi fitur anomali yang memiliki kontras tinggi dengan baik (Gambar \ref{fig:visual_val}).
 
-    \begin{figure}[H]
+\begin{figure}[H]
     \centering
     \begin{minipage}{0.48\columnwidth}
         \centering
@@ -82,7 +79,26 @@ Validasi kualitatif dilakukan dengan membandingkan prediksi model terhadap citra
     \end{minipage}
     \caption{Perbandingan visual (a) Label anomali asli dan (b) Hasil deteksi model. Kotak pembatas pada (b) menunjukkan prediksi dengan skor kepercayaan terkait.}
     \label{fig:visual_val}
-    \end{figure}
-\end{itemize}
+\end{figure}
 
-Secara keseluruhan, model direkomendasikan untuk digunakan dengan \textit{confidence threshold} 0.16 untuk meminimalkan anomali yang terlewat, sembari tetap menjaga tingkat \textit{false positive} yang minimal.
+Namun, analisis lebih mendalam terhadap kasus \textit{False Negatives} (Gambar \ref{fig:fn_analysis}) mengungkapkan beberapa faktor utama penyebab kegagalan deteksi:
+\begin{enumerate}
+    \item \textbf{Rasio Sinyal-terhadap-Noise (SNR) Rendah}: Anomali dengan intensitas sinyal yang lemah sering kali tersamarkan oleh \textit{noise} seismik latar belakang, membuatnya sulit dibedakan oleh model dibandingkan anomali yang kontras.
+    \item \textbf{Ambiguitas Fitur}: Beberapa struktur geologi seperti lapisan batuan yang kacau (\textit{chaotic layering}) memiliki kemiripan visual dengan pola anomali gas atau retakan, menyebabkan model ragu (skor kepercayaan rendah) untuk memberikan label positif.
+    \item \textbf{Efek Batas Ubin}: Meskipun strategi \textit{overlap} telah diterapkan, anomali yang terpotong di tepi ubin terkadang kehilangan konteks spasial yang cukup untuk diidentifikasi dengan yakin.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\columnwidth]{false_negatives_montage.jpg}
+\caption{Analisis False Negatives: Visualisasi anomali yang gagal dideteksi (kotak merah). Kegagalan umumnya terjadi pada fitur yang samar atau memiliki karakteristik visual yang sangat mirip dengan tekstur latar belakang.}
+\label{fig:fn_analysis}
+\end{figure}
+
+\subsubsection{Diskusi Kesenjangan Metrik: Recall vs mAP}
+Terdapat perbedaan yang tampak signifikan antara nilai mAP@0.5 yang sangat tinggi (0.962) dengan nilai Recall efektif yang telebih rendah (~71-85\% bergantung pada \textit{threshold}). Kesenjangan ini dapat dijelaskan sebagai berikut:
+\begin{itemize}
+    \item \textbf{Interpretasi mAP}: Nilai mAP yang tinggi menunjukkan bahwa model sebenarnya berhasil mengidentifikasi dan memprioritaskan (\textit{ranking}) anomali dengan benar dibandingkan area latar belakang. Model "mengetahui" keberadaan objek tersebut.
+    \item \textbf{Isu Kepercayaan (Confidence)}: Rendahnya Recall pada ambang batas standar disebabkan oleh banyaknya deteksi benar yang memiliki skor kepercayaan rendah (misalnya 0.2 -- 0.4). Model mendeteksi pola tersebut, namun kurang "yakin" karena ambiguitas visual pada data seismik.
+\end{itemize}
+Oleh karena itu, untuk aplikasi praktis yang mengutamakan keselamatan (\textit{safety-critical}), disarankan untuk menurunkan ambang batas deteksi (\textit{confidence threshold}) ke level 0.16--0.20. Langkah ini akan secara efektif memulihkan anomali yang sebelumnya dianggap "terlewat" (False Negatives), dengan konsekuensi sedikit peningkatan pada False Positives yang dapat diverifikasi lebih lanjut oleh interpreter manusia.
