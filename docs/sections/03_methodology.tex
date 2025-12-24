@@ -9,9 +9,23 @@ Dataset awal terdiri dari 13 citra penampang seismik yang merepresentasikan stru
 Tahap pra-pemrosesan data memegang peranan krusial untuk mengubah data seismik mentah menjadi format yang sesuai untuk pelatihan model \textit{deep learning}. Implementasi lengkap proses ini dirancang dalam modul \texttt{preprocessing/seismic\_tiler.py}\footnote{Kode sumber lengkap (preprocessing dan training) tersedia di: \url{https://github.com/SandWithCheese/makalah-citra}}. Langkah-langkah utamanya adalah sebagai berikut:
 
 \begin{enumerate}
-    \item \textbf{Konversi dan Normalisasi}: Citra seismik dikonversi menjadi format \textit{grayscale}. Untuk meningkatkan kontras fitur anomali, diterapkan teknik \textit{percentile clipping} (default 1\%-99\%), di mana intensitas piksel di luar rentang ini dipotong (\textit{clipped}). Hasilnya kemudian dinormalisasi ke rentang intensitas [0, 255] agar sesuai dengan format citra 8-bit.
-    \item \textbf{Tiling dengan Overlap}: Mengingat dimensi penampang seismik yang sangat besar, citra dipecah menjadi ubin-ubin (\textit{tiles}) berukuran lebih kecil, dengan ukuran default $1024 \times 1024$ piksel. Untuk menjaga kontinuitas fitur geologi yang mungkin terpotong di batas ubin, diterapkan strategi \textit{overlapping} sebesar 25\% antar ubin.
-    \item \textbf{Filtering}: Ubin yang tidak mengandung informasi signifikan (misalnya area kosong atau \textit{minimum information}) disaring secara otomatis menggunakan ambang batas standar deviasi tertentu.
+    \item \textbf{Konversi dan Normalisasi}: Citra seismik dikonversi menjadi format \textit{grayscale}. Untuk meningkatkan kontras fitur anomali, diterapkan teknik \textit{percentile clipping} (default 1\%-99\%). Misalkan $I(x,y)$ adalah intensitas piksel awal, dan $p_{low}, p_{high}$ adalah nilai intensitas pada persentil ke-1 dan ke-99. Proses \textit{clipping} didefinisikan sebagai:
+    \begin{equation}
+    I_{clip}(x,y) = \min(\max(I(x,y), p_{low}), p_{high})
+    \end{equation}
+    Selanjutnya, dilakukan normalisasi \textit{min-max} ke rentang $[0, 255]$:
+    \begin{equation}
+    I_{norm}(x,y) = \frac{I_{clip}(x,y) - p_{low}}{p_{high} - p_{low}} \times 255
+    \end{equation}
+    Teknik ini memastikan fitur penting tidak hilang akibat \textit{outliers} yang ekstrem.
+
+    \item \textbf{Tiling dengan Overlap}: Mengingat dimensi penampang seismik yang sangat besar ($W \times H$), citra dipecah menjadi ubin-ubin (\textit{tiles}) berukuran $T \times T$ (default $1024 \times 1024$). Untuk menjaga kontinuitas fitur geologi, diterapkan strategi \textit{overlapping} dengan rasio $r$ (default 0.25). Langkah pergeseran/stride ($S$) dihitung sebagai:
+    \begin{equation}
+    S = \lfloor T \times (1 - r) \rfloor
+    \end{equation}
+    Koordinat pojok kiri atas $(x_i, y_j)$ untuk setiap ubin ditentukan oleh $x_i = i \times S$ dan $y_j = j \times S$, dengan penanganan khusus pada batas tepi citra untuk memastikan seluruh area tercakup.
+
+    \item \textbf{Filtering}: Ubin yang tidak mengandung informasi signifikan (misalnya area kosong atau \textit{minimum information}) disaring secara otomatis menggunakan ambang batas standar deviasi tertentu ($\sigma_{thresh}$). Jika $\sigma_{tile} < \sigma_{thresh}$, ubin tersebut dibuang dari dataset pelatihan untuk mencegah model belajar dari data kosong.
 \end{enumerate}
 
 Potongan kode berikut memperlihatkan implementasi logika iterasi \textit{tiling} (Gambar \ref{fig:code_tiling}):
@@ -42,6 +56,28 @@ Setelah proses \textit{tiling}, dilakukan pelabelan manual (\textit{annotation})
 
 \subsection{Implementasi YOLO}
 Pelatihan model deteksi objek dilakukan menggunakan skrip \texttt{src/train\_yolo.py} yang dibangun di atas kerangka kerja Ultralytics. Model yang dipilih untuk eksperimen ini adalah \texttt{yolo11s.pt} (YOLOv11 Small). Varian ini menawarkan keseimbangan optimal antara biaya komputasi dan akurasi deteksi, yang sangat sesuai untuk eksperimen awal pada perangkat keras terbatas.
+\textit{Hardware} dan \textit{software} yang digunakan untuk eksperimen ini dirangkum dalam Tabel \ref{tab:setup}.
+
+\begin{table}[htbp]
+\caption{Spesifikasi Lingkungan Eksperimen}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Komponen} & \textbf{Spesifikasi} \\
+\hline
+CPU & Intel Core i7-12700H \\
+GPU & NVIDIA GeForce RTX 3060 Laptop GPU (6GB) \\
+RAM & 16 GB DDR5 \\
+OS & Ubuntu 22.04 LTS (WSL2) \\
+Python & Versi 3.10 \\
+PyTorch & Versi 2.1.0+cu121 \\
+Ultralytics & Versi 8.1.0 \\
+\hline
+\end{tabular}
+\label{tab:setup}
+\end{center}
+\end{table}
+
 
 Alur kerja pelatihan mencakup langkah-langkah otomatis berikut:
 \begin{enumerate}

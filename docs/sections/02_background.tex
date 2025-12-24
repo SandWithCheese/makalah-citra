@@ -33,3 +33,26 @@ YOLO merupakan pendekatan \textit{object detection} yang membingkai masalah dete
 Setiap sel kisi memprediksi $B$ \textit{bounding boxes} beserta skor kepercayaan (\textit{confidence scores}) untuk kotak-kotak tersebut, serta probabilitas kelas kondisional ($C$). Skor kepercayaan didefinisikan sebagai $Pr(Object) \times IOU_{pred}^{truth}$, yang mencerminkan seberapa yakin model bahwa kotak tersebut berisi objek dan seberapa akurat kotak yang diprediksi tersebut. Seluruh proses deteksi dilakukan dalam satu evaluasi jaringan saraf tunggal (\textit{unified architecture}), yang memungkinkan optimalisasi \textit{ end-to-end} dan kecepatan inferensi \textit{real-time}, sekaligus mengurangi kesalahan \textit{false positive} pada latar belakang dibandingkan metode tradisional \cite{YOLO_v1}.
 
 Implementasi modern YOLO sering kali memanfaatkan teknik \textit{Transfer Learning}, di mana model diinisialisasi menggunakan bobot hasil pelatihan pada dataset berskala besar (seperti COCO Dataset). Pendekatan ini memungkinkan model untuk "mentransfer" kemampuan ekstraksi fitur dasar (seperti tepi dan tekstur) ke domain baru (seperti seismik) dengan lebih cepat dan akurat, meskipun jumlah data pelatihan pada domain target relatif terbatas.
+
+\subsection{Metrik Evaluasi Deteksi Objek}
+Evaluasi kinerja model deteksi objek menggunakan metrik standar yang berbeda dengan klasifikasi citra biasa \cite{Henderson2016, Rezatofighi2019}. Metrik utama yang digunakan meliputi \textit{Intersection over Union} (IoU), \textit{Precision}, \textit{Recall}, dan \textit{Mean Average Precision} (mAP).
+
+\subsubsection{Intersection over Union (IoU)}
+IoU mengukur tumpang tindih antara kotak prediksi ($B_p$) dan kotak \textit{ground truth} ($B_{gt}$). Nilai IoU didefinisikan sebagai rasio luas irisan terhadap luas gabungan kedua kotak tersebut:
+\begin{equation}
+IoU = \frac{Area(B_p \cap B_{gt})}{Area(B_p \cup B_{gt})}
+\end{equation}
+Nilai IoU berkisar antara 0 hingga 1. Sebuah prediksi dianggap benar (\textit{True Positive}) jika nilai IoU-nya melebihi ambang batas tertentu (biasanya 0.5).
+
+\subsubsection{Precision dan Recall}
+\textit{Precision} mengukur seberapa akurat deteksi positif yang dilakukan oleh model, sedangkan \textit{Recall} mengukur seberapa baik model menemukan seluruh objek positif yang ada dalam dataset.
+\begin{equation}
+Precision = \frac{TP}{TP + FP}
+\end{equation}
+\begin{equation}
+Recall = \frac{TP}{TP + FN}
+\end{equation}
+Dimana $TP$ adalah \textit{True Positive}, $FP$ adalah \textit{False Positive}, dan $FN$ adalah \textit{False Negative}.
+
+\subsubsection{Mean Average Precision (mAP)}
+mAP adalah rata-rata dari \textit{Average Precision} (AP) untuk setiap kelas. AP sendiri dihitung dengan mencari luas daerah di bawah kurva \textit{Precision-Recall}. Metrik mAP@0.5 menghitung mAP dengan ambang batas IoU sebesar 0.5, sedangkan mAP@0.5:0.95 menghitung rata-rata mAP pada berbagai ambang batas IoU (dari 0.5 hingga 0.95 dengan interval 0.05). Metrik ini memberikan gambaran performa model yang lebih komprehensif, mencakup akurasi lokasi dan klasifikasi.
