@@ -1,17 +1,11 @@
-\section{Methodology}
+\section{Pembahasan}
 \label{sec:methodology}
 
-\subsection{Dataset Preparation}
-Seismic data often spans kilometers in range, making it too large for direct input into standard CNNs. We employ an overlapping tiling strategy where large seismic sections are sliced into $W \times H$ tiles (default $1024 \times 1024$). To mitigate boundary effects, we apply a 25\% overlap. We also use percentile clipping (2\%-98\%) to handle amplitude outliers and normalize pixel intensities to $[0, 255]$ for 8-bit image conversion.
+\subsection{Dataset}
+Data seismik yang digunakan dalam penelitian ini terdiri dari penampang seismik yang mengandung anomali struktur bawah permukaan. Karena data seismik asli sering mencakup rentang kilometer yang luas, data tersebut tidak dapat dimasukkan secara langsung ke dalam arsitektur CNN standar tanpa kehilangan detail resolusi yang penting. Dataset dibagi menjadi himpunan \textit{training} dan \textit{validation} untuk memastikan generalisasi model.
 
-\subsection{YOLO Architecture}
-We adopt the YOLOv8 architecture, which features a CSPDarknet backbone for feature extraction and a Path Aggregation Network (PANet) neck for multi-scale feature fusion. The decoupled head predicts objectness, class probabilities, and bounding box regression coordinates separately.
+\subsection{Data Preprocessing}
+Kami menerapkan strategi \textit{tiling} di mana penampang seismik besar diiris menjadi ubin berukuran $W \times H$ (standar $1024 \times 1024$). Strategi ini diterapkan tidak hanya untuk mengatasi masalah resolusi citra, tetapi terutama sebagai solusi atas keterbatasan jumlah dataset asli yang sangat terbatas (hanya berjumlah sekitar sepuluh berkas). Dengan memecah citra menjadi banyak \textit{tile}, jumlah sampel pelatihan meningkat signifikan, berfungsi sebagai mekanisme augmentasi data untuk mencegah \textit{overfitting}. Untuk memitigasi efek batas dan memastikan kontinuitas fitur, kami menerapkan \textit{overlap} sebesar 25\% antar ubin. Selain itu, teknik normalisasi intensitas digunakan, yaitu \textit{percentile clipping} (2\%-98\%) untuk menangani \textit{outliers} amplitudo, diikuti dengan penskalaan linear intensitas piksel ke rentang $[0, 255]$ agar sesuai dengan format citra 8-bit yang dibutuhkan oleh model.
 
-\subsection{Training Configuration}
-The model is trained using transfer learning from COCO-pretrained weights to accelerate convergence.
-\begin{itemize}
-    \item \textbf{Framework}: Ultralytics YOLO
-    \item \textbf{Input Resolution}: $640 \times 640$ pixels
-    \item \textbf{Optimizer}: SGD with momentum 0.937
-    \item \textbf{Loss Function}: CIoU for box regression, BCE for classification
-\end{itemize}
+\subsection{Implementasi YOLO}
+Kami mengadopsi arsitektur YOLOv8 yang menampilkan \textit{backbone} CSPDarknet untuk \textit{feature extraction} dan \textit{Path Aggregation Network} (PANet) \textit{neck} untuk fusi fitur multi-skala. \textit{Head} yang terpisah (\textit{decoupled}) memprediksi \textit{objectness score}, \textit{class probabilities}, dan koordinat regresi \textit{bounding box} secara independen. Model dilatih menggunakan teknik \textit{transfer learning} dari bobot pra-latih COCO untuk mempercepat konvergensi. Parameter pelatihan utama meliputi resolusi input $640 \times 640$ piksel, pengoptimal SGD dengan momentum 0.937, serta \textit{loss function} CIoU untuk regresi kotak dan Binary Cross Entropy (BCE) untuk klasifikasi.

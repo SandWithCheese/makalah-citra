@@ -12,43 +12,34 @@
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
+% Language adjustments
+\renewcommand{\IEEEkeywordsname}{Kata Kunci}
+\renewcommand{\refname}{Referensi}
+\renewcommand{\abstractname}{Abstrak}
+
 % Path to graphics (Custom addition to keep folder structure clean)
 \graphicspath{ {./assets/} }
 
 \begin{document}
 
-\title{Subsurface Hazard Anomaly Detection in Seismic Data Using YOLO Approach*\\
-{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured for https://ieeexplore.ieee.org and should not be used}
-\thanks{Identify applicable funding agency here. If none, delete this.}
-}
+\title{Deteksi \textit{Subsurface Hazard Anomaly} pada Data Seismik Menggunakan Pendekatan YOLO}
 
-\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
-\and
-\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
-\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
-\textit{name of organization (of Aff.)}\\
-City, Country \\
-email address or ORCID}
+\author{\IEEEauthorblockN{Ahmad Naufal Ramadan - 13522005}
+\IEEEauthorblockA{\textit{Program Studi Teknik Informatika} \\
+\textit{Sekolah Teknik Elektro dan Informatika}\\
+\textit{Institut Teknologi Bandung}\\
+Jl. Ganesha 10 Bandung 40132, Indonesia \\
+13522005@std.stei.itb.ac.id, naufalahmad022@gmail.com}
 }
 
 \maketitle
 
 \begin{abstract}
-This paper presents a deep learning approach for automatically identifying subsurface geological hazards in seismic imagery using the You Only Look Once (YOLO) object detection framework. Seismic interpretation is traditionally a manual, time-consuming, and subjective process. We demonstrate that YOLO can rapidly and accurately localize anomalies such as fault zones, gas chimneys, and subsurface voids. Our methodology involves a rigorous preprocessing pipeline including percentile-based contrast normalization and overlapping tiling to handle large-scale seismic sections. Experimental results show that the model achieves significant accuracy in detecting hazardous patterns, offering a promising tool for assisting geophysicists in preliminary surveying and risk assessment.
+Makalah ini menyajikan pendekatan \textit{deep learning} untuk identifikasi otomatis \textit{subsurface geological hazards} pada citra seismik menggunakan kerangka kerja \textit{object detection} You Only Look Once (YOLO). \textit{Seismic interpretation} secara tradisional merupakan proses manual yang memakan waktu dan bersifat subjektif. Kami mendemonstrasikan bahwa YOLO dapat melokalisasi anomali seperti \textit{fault zones}, \textit{gas chimneys}, dan \textit{subsurface voids} dengan cepat dan akurat. Metodologi kami melibatkan alur \textit{preprocessing} yang ketat, termasuk \textit{percentile-based contrast normalization} dan \textit{overlapping tiling} untuk menangani penampang seismik berskala besar. Hasil eksperimen menunjukkan bahwa model mencapai akurasi yang signifikan dalam mendeteksi pola berbahaya, menawarkan alat yang menjanjikan untuk membantu ahli geofisika dalam survei awal dan \textit{risk assessment}.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Seismic Interpretation, Subsurface Hazards, Object Detection, YOLO, Deep Learning, Geophysics
+\textit{Seismic Interpretation}, \textit{Subsurface Hazards}, \textit{Object Detection}, YOLO, \textit{Deep Learning}, Geophysics, \textit{Digital Image Processing}
 \end{IEEEkeywords}
 
 % Modular Sections
@@ -61,5 +52,7 @@ Seismic Interpretation, Subsurface Hazards, Object Detection, YOLO, Deep Learnin
 % Bibliography parameters match the usage of IEEEtran.bst (from IEEEtranBST2.zip)
 \bibliographystyle{styles/IEEEtran}
 \bibliography{bib/references}
+
+\input{sections/06_originality}
 
 \end{document}

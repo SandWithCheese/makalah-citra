@@ -1,15 +1,8 @@
-\section{Introduction}
+\section{Pendahuluan}
 \label{sec:introduction}
 
-Seismic interpretation is a fundamental step in hydrocarbon exploration and subsurface hazard assessment. It involves analyzing seismic reflection data to identify geological structures such as faults, horizons, and gas chimneys \cite{Seismic_Survey}. Traditionally, this process is performed manually by experienced interpreters, which is both time-consuming and subjective, leading to potential inconsistencies in risk assessment.
+\textit{Seismic interpretation} merupakan langkah fundamental dalam eksplorasi hidrokarbon dan penilaian \textit{subsurface hazard}. Proses ini melibatkan analisis data refleksi seismik untuk mengidentifikasi struktur geologi seperti \textit{faults}, \textit{horizons}, dan \textit{gas chimneys} \cite{RemoteSensing2023}. Secara tradisional, proses ini dilakukan secara manual oleh interpreter berpengalaman, yang memakan waktu dan bersifat subjektif, sehingga berpotensi menimbulkan inkonsistensi dalam penilaian risiko.
 
-\subsection{Problem Statement}
-With the exponential growth of seismic data volume, manual interpretation has become a bottleneck. Furthermore, subtle hazardous features like small fault zones or gas pockets can be easily overlooked in noisy data, posing significant risks to drilling operations. Existing automated methods often rely on traditional image processing techniques that struggle with the complex, noisy nature of seismic data.
+Seiring dengan pertumbuhan volume data seismik yang eksponensial, interpretasi manual menjadi hambatan utama (\textit{bottleneck}). Selain itu, fitur bahaya yang halus seperti \textit{small fault zones} atau \textit{gas pockets} dapat dengan mudah terlewatkan dalam data yang \textit{noisy}, yang menimbulkan risiko signifikan bagi operasi pengeboran. Metode otomatis yang ada sering kali bergantung pada teknik \textit{image processing} tradisional yang kesulitan menangani sifat data seismik yang kompleks dan penuh gangguan.
 
-\subsection{Contribution}
-This paper proposes an automated detection framework using the YOLO (You Only Look Once) deep learning architecture. Our contributions include:
-\begin{itemize}
-    \item Adaptation of the YOLO object detection model for seismic anomaly identification.
-    \item A specialized preprocessing pipeline involving percentile-based contrast normalization and overlapping tiling.
-    \item Empirical evaluation of the model's performance in detecting multiple classes of subsurface hazards.
-\end{itemize}
+Makalah ini mengusulkan kerangka kerja deteksi otomatis menggunakan arsitektur \textit{deep learning} YOLO (\textit{You Only Look Once}). Kontribusi utama kami meliputi adaptasi model \textit{object detection} YOLO untuk identifikasi anomali seismik, pengembangan alur \textit{preprocessing} khusus yang melibatkan \textit{percentile-based contrast normalization} dan \textit{overlapping tiling}, serta evaluasi empiris kinerja model dalam mendeteksi berbagai kelas \textit{subsurface hazards}.

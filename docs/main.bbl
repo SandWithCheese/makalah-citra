@@ -7,7 +7,8 @@
 \providecommand{\BIBentrySTDinterwordspacing}{\spaceskip=0pt\relax}
 \providecommand{\BIBentryALTinterwordstretchfactor}{4}
 \providecommand{\BIBentryALTinterwordspacing}{\spaceskip=\fontdimen2\font plus
-\BIBentryALTinterwordstretchfactor\fontdimen3\font minus \fontdimen4\font\relax}
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
+  \fontdimen4\font\relax}
 \providecommand{\BIBforeignlanguage}[2]{{%
 \expandafter\ifx\csname l@#1\endcsname\relax
 \typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
@@ -20,13 +21,36 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{Seismic_Survey}
-{\"O}.~Yilmaz, ``Seismic reflection surveying: A critical review,'' \emph{Geophysics}, vol.~66, no.~1, pp. 12--25, 2001.
+\bibitem{RemoteSensing2023}
+H.~Yang \emph{et~al.}, ``Fault detection via 2.5d transformer u-net with
+  seismic data pre-processing,'' \emph{Remote Sensing}, vol.~15, no.~4, p.
+  1039, 2023.
 
-\bibitem{Seismic_Processing}
-------, \emph{Seismic Data Analysis: Processing, Inversion, and Interpretation of Seismic Data}.\hskip 1em plus 0.5em minus 0.4em\relax Society of Exploration Geophysicists, 2001.
+\bibitem{Munir2025_Part1}
+R.~Munir, ``Pengantar pemrosesan citra digital (bagian 1),'' Bahan Kuliah
+  IF4073 Pemrosesan Citra Digital, Program Studi Teknik Informatika, STEI ITB,
+  2025.
+
+\bibitem{Munir2025_Part2}
+------, ``Pengantar pemrosesan citra digital (bagian 2),'' Bahan Kuliah IF4073
+  Pemrosesan Citra Digital, Program Studi Teknik Informatika, STEI ITB, 2025.
+
+\bibitem{Munir2025_Enhancement}
+------, ``Perbaikan kualitas citra (image enhancement) - bagian 1,'' Bahan
+  Kuliah IF4073 Pemrosesan Citra Digital, Program Studi Teknik Informatika,
+  STEI ITB, 2025.
+
+\bibitem{IntroReflectionSeismics_Chapter5}
+``Introduction to reflection seismics: Processing of seismic reflection data,''
+  Lecture Notes, Chapter 5.
+
+\bibitem{ScientificDrilling2020}
+D.~R. Cox \emph{et~al.}, ``Geohazard detection using 3d seismic data,''
+  \emph{Scientific Drilling}, vol.~28, pp. 1--20, 2020.
 
 \bibitem{YOLO_v1}
-J.~Redmon, S.~Divvala, R.~Girshick, and A.~Farhadi, ``You only look once: Unified, real-time object detection,'' in \emph{Proceedings of the IEEE conference on computer vision and pattern recognition}, 2016, pp. 779--788.
+J.~Redmon, S.~Divvala, R.~Girshick, and A.~Farhadi, ``You only look once:
+  Unified, real-time object detection,'' in \emph{Proceedings of the IEEE
+  conference on computer vision and pattern recognition}, 2016, pp. 779--788.
 
 \end{thebibliography}

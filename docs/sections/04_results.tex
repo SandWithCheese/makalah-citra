@@ -1,25 +1,30 @@
-\section{Results and Analysis}
+\subsection{Evaluasi Model}
 \label{sec:results}
 
-\subsection{Quantitative Analysis}
-The model was evaluated on a held-out test set of seismic tiles. We report standard object detection metrics: Precision (P), Recall (R), and mean Average Precision (mAP) at an Intersection over Union (IoU) threshold of 0.5.
+Model dievaluasi menggunakan \textit{held-out test set} dari ubin seismik yang tidak dilibatkan dalam pelatihan. Kami melaporkan metrik \textit{object detection} standar: \textit{Precision} (P), \textit{Recall} (R), dan \textit{mean Average Precision} (mAP) pada ambang batas \textit{Intersection over Union} (IoU) sebesar 0.5.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=\columnwidth]{detections.jpg}}
+\caption{Visualisasi hasil prediksi model pada data validasi. Kotak pembatas berwarna menunjukkan lokasi anomali seismik yang terdeteksi (\textit{Fault}, \textit{Gas Chimney}, \textit{Void}) dibandingkan dengan label \textit{ground truth}.}
+\label{fig:detections}
+\end{figure}
+
 \begin{table}[htbp]
-\caption{Detection Performance by Class}
+\caption{Kinerja Deteksi Berdasarkan Kelas}
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Class} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP@0.5} \\
+\textbf{Kelas} & \textbf{\textit{Precision}} & \textbf{\textit{Recall}} & \textbf{mAP@0.5} \\
 \hline
-Fault & 0.85 & 0.78 & 0.82 \\
-Gas Chimney & 0.76 & 0.82 & 0.79 \\
-Void & 0.91 & 0.88 & 0.90 \\
+\textit{Fault} & 0.85 & 0.78 & 0.82 \\
+\textit{Gas Chimney} & 0.76 & 0.82 & 0.79 \\
+\textit{Void} & 0.91 & 0.88 & 0.90 \\
 \hline
-\textbf{Overall} & \textbf{0.84} & \textbf{0.83} & \textbf{0.84} \\
+\textbf{Keseluruhan} & \textbf{0.84} & \textbf{0.83} & \textbf{0.84} \\
 \hline
 \end{tabular}
 \label{tab:metrics}
 \end{center}
 \end{table}
 
-\subsection{Qualitative Analysis}
-Figure \ref{fig:detections} demonstrates the model's ability to localize hazard features. The bounding boxes accurately encompass the vertical extent of gas chimneys and the linear discontinuities of fault zones, distinguishing them from surrounding sedimentary layers.
+Analisis kualitatif, seperti yang ditunjukkan pada Gambar \ref{fig:detections}, menegaskan kemampuan model untuk melokalisasi fitur bahaya secara visual. \textit{Bounding box} yang dihasilkan secara akurat mencakup jangkauan vertikal \textit{gas chimneys} dan diskontinuitas linear \textit{fault zones}, membedakannya secara efektif dari lapisan sedimen di sekitarnya meskipun terdapat derau pada data.
